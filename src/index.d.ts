@@ -9,5 +9,8 @@ declare type GamerProfile = {
   TenureLevel: number;
 };
 
-export async function authenticate(account: string, password: string): AuthData;
-export async function query(auth_data: AuthData, tag: string): GamerProfile;
+export function authenticate(
+  account: string,
+  password: string
+): Promise<AuthData>;
+export function query(auth_data: AuthData, tag: string): Promise<GamerProfile>;
