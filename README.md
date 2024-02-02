@@ -1,4 +1,4 @@
-# xbox_query
+# xbox-query
 
 用于查询xbox玩家信息的 NodeJS 包
 
