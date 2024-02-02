@@ -1,0 +1,27 @@
+{
+  "name": "xbox-query",
+  "version": "1.0.0",
+  "description": "nodejs CLI tool for querying xbox player data",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {},
+  "bin": {
+    "xbox-query": "src/cli.js"
+  },
+  "keywords": [
+    "xbox",
+    "xuid"
+  ],
+  "author": {
+    "name": "XiYang6666",
+    "email": "1782356858@qq.com",
+    "url": "https://github.com/XiYang6666"
+  },
+  "repository": "github:XiYang6666/xbox-query",
+  "license": "MIT",
+  "dependencies": {
+    "@xboxreplay/xboxlive-auth": "^4.0.0",
+    "axios": "^1.6.7",
+    "inquirer": "^9.2.13"
+  }
+}
