@@ -1,5 +1,5 @@
-import { authenticate } from '@xboxreplay/xboxlive-auth'
-import axios from 'axios'
+import { authenticate } from "@xboxreplay/xboxlive-auth"
+import axios from "axios"
 
 async function query(auth_data, tag) {
     let tagType = /^[0-9]{16}$/.test(tag) ? "xuid" : "gt"
@@ -15,14 +15,13 @@ async function query(auth_data, tag) {
         }
     )
 
-    let gamerOriginalData = response.data['profileUsers'][0]
+    let gamerOriginalData = response.data["profileUsers"][0]
     let gamerData = { "xuid": gamerOriginalData["id"] }
     for (let settingPair of gamerOriginalData["settings"]) {
         let key = settingPair["id"]
         let value = settingPair["value"]
         gamerData[key] = ["Gamerscore", "TenureLevel"].includes(key) ? Number(value) : value
     }
-    console.log(gamerData)
     return gamerData
 }
 

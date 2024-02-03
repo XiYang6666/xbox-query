@@ -15,19 +15,19 @@ switch (argv[0]) {
     case "login":
         let answer = await inquirer.prompt([
             {
-                type: 'input',
-                name: 'account',
-                message: '账号',
+                type: "input",
+                name: "account",
+                message: "账号",
             },
             {
-                type: 'password',
-                name: 'password',
-                message: '密码'
+                type: "password",
+                name: "password",
+                message: "密码"
             }
         ])
 
-        let account = answer['account']
-        let password = answer['password']
+        let account = answer["account"]
+        let password = answer["password"]
         authenticate(account, password).then((auth_data) => {
             fs.writeFile(authDataFile, JSON.stringify(auth_data), (err) => { if (err) console.log(err) })
             console.info("LOGIN SUCCESSFUL")
