@@ -1,4 +1,7 @@
-declare type AuthData = {};
+import {
+  CredentialsAuthenticateResponse,
+  authenticate,
+} from "@xboxreplay/xboxlive-auth";
 
 declare type GamerProfile = {
   xuid: string;
@@ -9,8 +12,8 @@ declare type GamerProfile = {
   TenureLevel: number;
 };
 
-export function authenticate(
-  account: string,
-  password: string
-): Promise<AuthData>;
-export function query(auth_data: AuthData, tag: string): Promise<GamerProfile>;
+export { authenticate };
+export declare function query(
+  auth_data: CredentialsAuthenticateResponse,
+  tag: string
+): Promise<GamerProfile>;
