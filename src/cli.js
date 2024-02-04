@@ -43,7 +43,7 @@ program
     })
 
 program
-    .command("query <tag>")
+    .command("query <tag|gamertag>")
     .description("查询玩家信息")
     .action(async (tag) => {
         let auth_data = JSON.parse(fs.readFileSync(authDataFile))
