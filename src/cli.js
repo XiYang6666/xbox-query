@@ -5,14 +5,20 @@ import os from "os"
 import path from "path"
 
 import inquirer from "inquirer"
+import { program } from "commander"
 
 import { authenticate, query } from "./index.js"
 
-const argv = process.argv.slice(2)
 const authDataFile = path.join(os.homedir(), "./.xbox_query_auth_data.json")
+const { version } = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString())
 
-switch (argv[0]) {
-    case "login":
+program.name("xbox-query")
+program.version(version);
+
+program
+    .command("login")
+    .description("登录Xbox获取token")
+    .action(async () => {
         let answer = await inquirer.prompt([
             {
                 type: "input",
@@ -29,13 +35,17 @@ switch (argv[0]) {
         let account = answer["account"]
         let password = answer["password"]
         authenticate(account, password).then((auth_data) => {
-            fs.writeFile(authDataFile, JSON.stringify(auth_data), (err) => { if (err) console.log(err) })
+            fs.writeFileSync(authDataFile, JSON.stringify(auth_data), (err) => { if (err) console.log(err) })
             console.info("LOGIN SUCCESSFUL")
         }).catch((err) => {
             console.error(err)
         })
-        break
-    case "query":
+    })
+
+program
+    .command("query <tag>")
+    .description("查询玩家信息")
+    .action(async () => {
         let tag = argv[1]
         let auth_data = JSON.parse(fs.readFileSync(authDataFile))
         query(auth_data, tag).then((result) => {
@@ -48,5 +58,6 @@ switch (argv[0]) {
                 "\n"
             )
         })
-        break
-}
+    })
+
+program.parse()
