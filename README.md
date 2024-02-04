@@ -4,26 +4,38 @@
 
 ## 使用
 
-1. 通过CLI
+### 通过CLI
 
-    1. 安装npm包
+1. 安装npm包
 
-        ```bash
-        npm install -g xbox-query
-        ```
+    ```bash
+    npm install -g xbox-query
+    ```
 
-    2. 登录你的xbox账号
+2. 登录你的xbox账号
 
-        ```bash
-        xbox-query login
-        ```
+    ```bash
+    xbox-query login
+    ```
 
-    3. 查询玩家
+3. 查询玩家
 
-        ```bash
-        xbox-query query < gamer_tag | xuid >
-        ```
+    ```bash
+    xbox-query query <gamer_tag|xuid>
+    ```
 
-2. 通过引入npm包
+### 通过引入npm包
 
-    略
+> [!TIP]
+> 仅支持ESM
+
+```js
+import { authenticate, query } from "xbox-query"
+
+(async ()=>{
+    let authData = await authenticate("YOUR_XBOX_ACCOUNT","YOUR_XBOX_PASSWORD")
+    let playerProfile = await query(authData, "PLAYER_TAG")
+    console.log(playerProfile)
+})()
+
+```
