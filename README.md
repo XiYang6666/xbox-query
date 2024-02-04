@@ -51,7 +51,7 @@ function query(auth_date: CredentialsAuthenticateResponse, tag: string): Promise
 以下为示例代码。此代码将会登录`example@example.com`的 Xbox 账号并使用它的 token ，然后获取 `xuid` 为 `123456789` 玩家的信息。
 
 ```js
-import { authenticate, query } from "./index.js";
+import { authenticate, query } from "xbox-query";
 
 authenticate("example@example.com", "password").then(data => {
     console.log(
