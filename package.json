@@ -1,10 +1,12 @@
 {
   "name": "xbox-query",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "nodejs CLI tool for querying xbox player data",
   "main": "src/index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "test": "echo qwq"
+  },
   "bin": {
     "xbox-query": "src/cli.js"
   },
