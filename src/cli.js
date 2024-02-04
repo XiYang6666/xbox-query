@@ -43,11 +43,11 @@ program
     })
 
 program
-    .command("query <tag|gamertag>")
+    .command("query <gamertag|xuid>")
     .description("查询玩家信息")
-    .action(async (tag) => {
+    .action(async (gamertag) => {
         let auth_data = JSON.parse(fs.readFileSync(authDataFile))
-        query(auth_data, tag).then((result) => {
+        query(auth_data, gamertag).then((result) => {
             console.log(
                 `XUID: \t\t${result.xuid}\n` +
                 `玩家名: \t${result.GameDisplayName}\n` +
