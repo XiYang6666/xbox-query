@@ -60,4 +60,12 @@ program
         })
     })
 
+program
+    .command("clean")
+    .description("清除token")
+    .action(async () => {
+        fs.unlinkSync(authDataFile)
+        console.log("CLEAN SUCCESSFUL")
+    })
+
 program.parse()
