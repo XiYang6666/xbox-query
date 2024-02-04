@@ -45,8 +45,7 @@ program
 program
     .command("query <tag|gamertag>")
     .description("查询玩家信息")
-    .action(async () => {
-        let tag = argv[1]
+    .action(async (tag) => {
         let auth_data = JSON.parse(fs.readFileSync(authDataFile))
         query(auth_data, tag).then((result) => {
             console.log(

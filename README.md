@@ -60,4 +60,5 @@ authenticate("example@example.com", "password").then(data => {
         })
     );
 });
+
 ```
