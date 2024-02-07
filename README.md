@@ -30,7 +30,9 @@ xuid-query query <gamertag|xuid>
 
 ## API
 
-`xbox-query` 通常与 `@xboxreplay/xboxlive-auth` 的 `authenticate` 连用，为方便起见，你可以直接从`xbox-query`导入它。
+`xbox-query` 通常与 `@xboxreplay/xboxlive-auth` 的 `authenticate` 连用。为方便起见，`xbox-query` 直接从依赖中导出 `authenticate`，因此你可以直接从`xbox-query`导入它。
+
+以下为主页函数与类型别名的伪声明代码：
 
 ```ts
 // authenticate 与 CredentialsAuthenticateResponse, 直接导入来自 @xboxreplay/xboxlive-auth
@@ -45,6 +47,13 @@ type GamerProfile = {
     TenureLevel: number;
 };
 
+/**
+ * 获取指定玩家信息
+ *
+ * @param {CredentialsAuthenticateResponse} auth_data 请求用到的 token
+ * @param {string} tag 目标玩家的 gamertag 或者 xuid
+ * @return {*}  {Promise<GamerProfile>} 玩家信息
+ */
 function query(auth_date: CredentialsAuthenticateResponse, tag: string): Promise<GamerProfile>;
 ```
 
