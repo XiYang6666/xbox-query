@@ -47,16 +47,22 @@ program
     .description("查询玩家信息")
     .action(async (gamertag) => {
         let auth_data = JSON.parse(fs.readFileSync(authDataFile))
-        query(auth_data, gamertag).then((result) => {
-            console.log(
-                `XUID: \t\t${result.xuid}\n` +
-                `玩家名: \t${result.GameDisplayName}\n` +
-                `玩家代号: \t${result.Gamertag}\n` +
-                `头像: \t\t${result.GameDisplayPicRaw}\n` +
-                `分数(G): \t${result.Gamerscore}\n` +
-                "\n"
-            )
-        })
+        if (!auth_data) {
+            console.log('Token exist. Please use "xbox-query login" to get the token.')
+        } else {
+            query(auth_data, gamertag).then((result) => {
+                console.log(
+                    `XUID: \t\t${result.xuid}\n` +
+                    `玩家名: \t${result.GameDisplayName}\n` +
+                    `玩家代号: \t${result.Gamertag}\n` +
+                    `头像: \t\t${result.GameDisplayPicRaw}\n` +
+                    `分数(G): \t${result.Gamerscore}\n` +
+                    "\n"
+                )
+            }).catch(err => {
+                console.log(err.message)
+            })
+        }
     })
 
 program
