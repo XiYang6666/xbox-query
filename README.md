@@ -25,7 +25,7 @@ xbox-query login
 通过`xuid`或者`gamertag`来获取玩家信息。
 
 ```bash
-xuid-query <xuid|gametag>
+xuid-query query <gamertag|xuid>
 ```
 
 ## API
