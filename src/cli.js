@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 
-import fs from "fs"
-import os from "os"
-import path from "path"
+import fs from "fs";
+import os from "os";
+import path from "path";
 
-import inquirer from "inquirer"
-import { program } from "commander"
+import inquirer from "inquirer";
+import { program } from "commander";
 
-import { authenticate, query } from "./index.js"
+import { authenticate, query } from "./index.js";
 
-const authDataFile = path.join(os.homedir(), "./.xbox_query_auth_data.json")
-const { version } = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString())
+const authDataFile = path.join(os.homedir(), "./.xbox_query_auth_data.json");
+const { version } = JSON.parse(
+    fs.readFileSync(new URL("../package.json", import.meta.url)).toString()
+);
 
-program.name("xbox-query")
+program.name("xbox-query");
 program.version(version);
 
 program
@@ -28,56 +30,70 @@ program
             {
                 type: "password",
                 name: "password",
-                message: "密码"
-            }
-        ])
+                message: "密码",
+            },
+        ]);
 
-        let account = answer["account"]
-        let password = answer["password"]
-        authenticate(account, password).then((auth_data) => {
-            fs.writeFileSync(authDataFile, JSON.stringify(auth_data), (err) => { if (err) console.log(err) })
-            console.info("LOGIN SUCCESSFUL")
-        }).catch((err) => {
-            console.error(err.message)
-        })
-    })
+        let account = answer["account"];
+        let password = answer["password"];
+        authenticate(account, password)
+            .then((auth_data) => {
+                fs.writeFileSync(authDataFile, JSON.stringify(auth_data), (err) => {
+                    if (err) console.log(err);
+                });
+                console.info("LOGIN SUCCESSFUL");
+            })
+            .catch((err) => {
+                console.error(err.message);
+            });
+    });
 
 program
     .command("query <gamertag|xuid>")
     .description("查询玩家信息")
     .action(async (gamertag) => {
-        let auth_data = null
+        let auth_data = null;
         try {
-            let data = fs.readFileSync(authDataFile)
-            auth_data = JSON.parse(data)
+            let data = fs.readFileSync(authDataFile);
+            auth_data = JSON.parse(data);
         } catch (err) {
-            console.error(err.message)
-            return
+            console.error(err.message);
+            return;
         }
         if (!auth_data) {
-            console.error('Token does not exist. Please use "xbox-query login" to get the token.')
-            return
+            console.error(
+                'Token does not exist. Please use "xbox-query login" to get the token.'
+            );
+            return;
         }
-        query(auth_data, gamertag).then((result) => {
-            console.log(
+        try {
+            let result = await query(auth_data, gamertag)
+            let output =
                 `XUID: \t\t${result.xuid}\n` +
                 `玩家名: \t${result.GameDisplayName}\n` +
                 `玩家代号: \t${result.Gamertag}\n` +
                 `头像: \t\t${result.GameDisplayPicRaw}\n` +
                 `分数(G): \t${result.Gamerscore}\n` +
                 "\n"
-            )
-        }).catch(err => {
-            console.log(err.message)
-        })
-    })
+            console.log(output);
+        } catch (err) {
+            console.error(err.message);
+            return;
+        }
+
+    });
+
 
 program
     .command("clean")
     .description("清除token")
     .action(async () => {
-        fs.unlinkSync(authDataFile)
-        console.log("CLEAN SUCCESSFUL")
-    })
+        try {
+            await fs.unlink(authDataFile)
+            console.log("CLEAN SUCCESSFUL");
+        } catch (err) {
+            console.error(err.message);
+        }
+    });
 
-program.parse()
+program.parse();

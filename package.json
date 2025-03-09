@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo qwq"
+    "dev": "npm exec ."
   },
   "bin": {
     "xbox-query": "src/cli.js"
