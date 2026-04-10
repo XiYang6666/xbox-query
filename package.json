@@ -22,7 +22,7 @@
   "repository": "github:XiYang6666/xbox-query",
   "license": "MIT",
   "dependencies": {
-    "@xboxreplay/xboxlive-auth": "^4.0.0",
+    "@xboxreplay/xboxlive-auth": "^5.1.0",
     "axios": "^1.6.7",
     "commander": "^12.0.0",
     "inquirer": "^9.2.13"
