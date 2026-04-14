@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "npm exec ."
+    "dev": "pnpm exec ."
   },
   "bin": {
     "xbox-query": "src/cli.js"
